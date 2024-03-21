@@ -1,9 +1,6 @@
 from abc import ABC, abstractmethod
-from pprint import pprint
 
 import requests
-
-from config import employers
 
 
 class BasicAPI(ABC):
@@ -59,7 +56,3 @@ class HeadHunterAPI(BasicAPI):
             return list_vacancies
         except Exception as err:
             print(f"{err}: Сервис hh.ru не доступен")
-
-
-hh = HeadHunterAPI(employers)
-pprint(hh.get_vacancies())

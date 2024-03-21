@@ -14,6 +14,7 @@ def interface():
     print("5. Получить список всех вакансий по ключевому слову")
     print("6. Завершить программу")
 
+
 def main():
     vacancies = HeadHunterAPI(employers)
     list_vacancies = vacancies.get_vacancies()
