@@ -24,7 +24,7 @@ class DBManager:
     def get_companies_and_vacancies_count(self):
         """Получает список всех компаний и количество вакансий у каждой компании."""
         return self.db_connect(
-                    'SELECT employer_name, COUNT(vacancy_id) FROM '
+                    'SELECT employer_name, COUNT(vacancy_id) FROM'
                     'vacancies JOIN employers ON vacancies.employer_id = employers.employer_id GROUP BY employer_name'
         )
 
