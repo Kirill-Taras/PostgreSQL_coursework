@@ -1,7 +1,9 @@
 from abc import ABC, abstractmethod
-
+from pprint import pprint
 
 import requests
+
+from config import employers
 
 
 class BasicAPI(ABC):
@@ -16,8 +18,8 @@ class BasicAPI(ABC):
 class HeadHunterAPI(BasicAPI):
     """Класс для получения вакансий компании company_id"""
 
-    def __init__(self, company_id: int):
-        self.company_id = company_id
+    def __init__(self, company_id: dict):
+        self.company_id = company_id.values()
         self.params = {
             "employer_id": self.company_id,  # id компаний.
             "per_page": 100,  # количество вакансий.
@@ -57,3 +59,7 @@ class HeadHunterAPI(BasicAPI):
             return list_vacancies
         except Exception as err:
             print(f"{err}: Сервис hh.ru не доступен")
+
+
+hh = HeadHunterAPI(employers)
+pprint(hh.get_vacancies())
