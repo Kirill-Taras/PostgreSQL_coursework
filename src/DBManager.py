@@ -9,10 +9,12 @@ class DBManager:
 
     def db_connect(self, query):
         """Метод для запроса к базе данных"""
-        with psycopg2.connect(dbname=self.database_name, **self.params) as conn:
-            with conn.cursor() as cur:
-                cur.execute(query)
-                answer = cur.fetchall()
+        conn = psycopg2.connect(dbname=self.database_name, **self.params)
+        with conn.cursor() as cur:
+            cur.execute(query)
+            answer = cur.fetchall()
+        conn.commit()
+        conn.close()
         return answer
 
     def get_companies_and_vacancies_count(self):
