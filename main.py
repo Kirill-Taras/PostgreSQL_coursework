@@ -1,4 +1,4 @@
-from config import employers
+from config import employers, config
 from src.DBManager import DBManager
 from src.api_hh import HeadHunterAPI
 from src.database import DBVacancies
@@ -18,11 +18,14 @@ def interface():
 def main():
     vacancies = HeadHunterAPI(employers)
     list_vacancies = vacancies.get_vacancies()
-    db_vacancies = DBVacancies("cource_job", "evgeniagoncar", "127.0.0.1", list_vacancies)
+
+    params = config()
+
+    db_vacancies = DBVacancies("cource_job", "postgres", params, list_vacancies)
     db_vacancies.create_database()
     db_vacancies.create_tables()
     db_vacancies.insert_data()
-    db_manager = DBManager("cource_job", "evgeniagoncar", "127.0.0.1")
+    db_manager = DBManager("cource_job", params)
 
     while True:
         interface()

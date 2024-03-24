@@ -3,19 +3,13 @@ import psycopg2
 
 class DBManager:
 
-    def __init__(self, database_name, user_name, host):
+    def __init__(self, database_name, params):
         self.database_name = database_name
-        self.user_name = user_name
-        self.host = host
-        self.conn_params = psycopg2.connect(
-            database=self.database_name,
-            user=self.user_name,
-            host=self.host
-        )
+        self.params = params
 
     def db_connect(self, query):
         """Метод для запроса к базе данных"""
-        with psycopg2.connect(**self.conn_params) as conn:
+        with psycopg2.connect(dbname=self.database_name, **self.params) as conn:
             with conn.cursor() as cur:
                 cur.execute(query)
                 answer = cur.fetchall()
